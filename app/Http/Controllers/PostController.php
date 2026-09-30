@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Http\Requests\savePostRequest;
+use App\Http\Requests\SavePostRequest;
 
-class PostController
+class PostController extends Controller
 {
     public function index() //mostrar listado de post
     {
@@ -24,7 +24,7 @@ class PostController
         return view('posts.create', ['post' => new Post]);
     }
 
-    public function store(savePostRequest $request) // para almacenar el post en la bd
+    public function store(SavePostRequest $request) // para almacenar el post en la bd
     {
         Post::create($request->validated());
 
@@ -38,7 +38,7 @@ class PostController
         return view('posts.edit', ['post' => $post]);
     }
 
-    public function update(savePostRequest $request, Post $post) //almacenar los cambios de un post en la bd
+    public function update(SavePostRequest $request, Post $post) //almacenar los cambios de un post en la bd
     {
         $post->update($request->validated());
 
@@ -53,5 +53,11 @@ class PostController
         $post->delete();
 
         return to_route('posts.index')->with('status','Post deleted');
+    }
+
+    public function __construct()
+
+    {
+       $this->middleware('auth')->except('index','show');
     }
 }

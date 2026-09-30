@@ -36,6 +36,10 @@
                     href="{{ route('nosotros') }}"> Nosotros </a>
                 <a class="px-3 py-2 {{ request()->routeIs('contact') ? 'text-sky-500' : 'text-slate-600 hover:text-sky-500 dark:text-slate-300' }}"
                     href="{{ route('contact') }}"> Contacto </a>
+                @auth
+                    <a class="px-3 py-2 {{ request()->routeIs('dashboard') ? 'text-sky-500' : 'text-slate-600 hover:text-sky-500 dark:text-slate-300' }}"
+                        href="{{ route('dashboard') }}"> Dashboard </a>
+                @endauth
         </div>
 
         {{-- Lado derecho: selector de tema y avatar --}}
@@ -78,9 +82,25 @@
                     </button>
                 </div>
             </div>
-            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 text-lg text-gray-800 dark:bg-gray-700 dark:text-gray-100">
-                JG
-            </span>
+            @auth
+                {{-- Con sesión: avatar con las iniciales (lleva al perfil) y botón para salir --}}
+                <a href="{{ route('profile.edit') }}" title="Perfil de {{ auth()->user()->name }}"
+                    class="flex h-12 w-12 items-center justify-center rounded-full text-lg {{ request()->routeIs('profile.*') ? 'bg-sky-100 text-sky-700 ring-2 ring-sky-500 dark:bg-sky-900 dark:text-sky-200' : 'bg-gray-200 text-gray-800 hover:ring-2 hover:ring-slate-400 dark:bg-gray-700 dark:text-gray-100' }}">
+                    {{ mb_strtoupper(collect(explode(' ', auth()->user()->name))->take(2)->map(fn ($parte) => mb_substr($parte, 0, 1))->join('')) }}
+                </a>
+                <form action="{{ route('logout') }}" method="POST" class="hidden md:block">
+                    @csrf
+                    <button type="submit" class="text-sm text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200">
+                        Salir
+                    </button>
+                </form>
+            @else
+                {{-- Sin sesión: links para entrar o registrarse --}}
+                <a href="{{ route('login') }}"
+                    class="hidden text-slate-600 hover:text-sky-500 md:inline dark:text-slate-300">Entrar</a>
+                <a href="{{ route('register') }}"
+                    class="hidden rounded-md bg-slate-700 px-4 py-1.5 text-sm font-semibold text-white hover:bg-slate-800 md:inline-block dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-white">Registrarse</a>
+            @endauth
         </div>
     </div>
 
@@ -94,5 +114,25 @@
             href="{{ route('nosotros') }}"> Nosotros </a>
         <a class="block rounded-md px-3 py-2 {{ request()->routeIs('contact') ? 'bg-sky-50 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300' : 'text-slate-600 hover:bg-slate-100 hover:text-sky-500 dark:text-slate-300 dark:hover:bg-gray-800' }}"
             href="{{ route('contact') }}"> Contacto </a>
+        @auth
+            <a class="block rounded-md px-3 py-2 {{ request()->routeIs('dashboard') ? 'bg-sky-50 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300' : 'text-slate-600 hover:bg-slate-100 hover:text-sky-500 dark:text-slate-300 dark:hover:bg-gray-800' }}"
+                href="{{ route('dashboard') }}"> Dashboard </a>
+        @endauth
+
+        {{-- Entrar / Registrarse / Salir en el celular --}}
+        <div class="mt-2 border-t border-gray-200 pt-2 dark:border-gray-700">
+            @auth
+                <a href="{{ route('profile.edit') }}" class="block rounded-md px-3 py-2 text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-gray-800">Perfil</a>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="block w-full rounded-md px-3 py-2 text-left text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-gray-800">
+                        Salir
+                    </button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="block rounded-md px-3 py-2 text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-gray-800">Entrar</a>
+                <a href="{{ route('register') }}" class="block rounded-md px-3 py-2 text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-gray-800">Registrarse</a>
+            @endauth
+        </div>
     </div>
 </header>

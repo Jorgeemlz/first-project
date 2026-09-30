@@ -2,7 +2,8 @@
 
   <h1 class="mt-12 text-center font-serif text-6xl font-bold text-sky-600 dark:text-sky-400">Blog</h1>
 
-  {{-- Botón redondo "+" para crear un post --}}
+  @auth
+  {{-- Botón redondo "+" para crear un post: solo con sesión iniciada --}}
   <div class="mt-4 mb-10 flex justify-center">
     <a href="{{ route('posts.create') }}" aria-label="Crear nuevo post" title="Crear nuevo post"
       class="flex h-11 w-11 items-center justify-center rounded-full bg-sky-600 text-white shadow-lg transition hover:bg-sky-700 hover:shadow-xl dark:bg-sky-500 dark:hover:bg-sky-400">
@@ -11,6 +12,10 @@
       </svg>
     </a>
   </div>
+  @else
+  {{-- Sin sesión no hay botón, solo dejamos el mismo espacio antes de las tarjetas --}}
+  <div class="mb-10"></div>
+  @endauth
 
   {{-- Contenedor de las tarjetas: 1 columna en celular, 2 en tablet, 3 en pantalla grande --}}
   <div class="mx-auto grid max-w-7xl gap-4 px-6 pb-16 sm:grid-cols-2 lg:grid-cols-3">

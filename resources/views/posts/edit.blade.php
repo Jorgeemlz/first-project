@@ -5,14 +5,11 @@
     @csrf
     @method('PATCH')
 
-    @include('posts.form-field')
+    @include('posts.partials.form-fields')
 
     <div class="mt-6 flex items-center justify-between">
         <a href="{{route('posts.index')}}" class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200">Back</a>
-        <button type="submit"
-            class="rounded-md bg-slate-700 px-5 py-2 font-semibold text-white shadow-sm hover:bg-slate-800 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-white">
-            Send
-        </button>
+        <x-primary-button>Send</x-primary-button>
     </div>
 </form>
 </x-layout>
