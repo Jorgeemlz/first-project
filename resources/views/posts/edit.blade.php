@@ -1,14 +1,18 @@
 <x-layout :meta-title="$post->title" :meta-description="$post->body">
-<h1>Edit form</h1>
+<h1 class="mt-16 text-center text-4xl font-bold">Edit form</h1>
 
-<form action="{{ route('posts.update', $post) }}" method="POST">
+<form action="{{ route('posts.update', $post) }}" method="POST" class="mx-auto mt-8 max-w-xl px-6">
     @csrf
     @method('PATCH')
 
     @include('posts.form-field')
 
-    <button type="submit">Send</button>
+    <div class="mt-6 flex items-center justify-between">
+        <a href="{{route('posts.index')}}" class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200">Back</a>
+        <button type="submit"
+            class="rounded-md bg-slate-700 px-5 py-2 font-semibold text-white shadow-sm hover:bg-slate-800 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-white">
+            Send
+        </button>
+    </div>
 </form>
-<br />
-<a href="{{route('posts.index')}}">Back </a>
 </x-layout>
