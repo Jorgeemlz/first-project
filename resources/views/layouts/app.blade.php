@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{$metaTitle ?? 'Yorch title'}}</title>
+    <title>{{ $metaTitle }}</title>
     <meta name="description" content="{{$metaDescription ?? 'Desfault description'}}"/>
     <script>
         // Aplica el tema guardado antes de pintar la página, para que no parpadee en blanco
@@ -24,6 +24,15 @@
     @endsession
 
     @include('layouts.navigation')
+
+    {{-- Encabezado opcional: <x-slot name="header"> --}}
+    @isset($header)
+        <div class="bg-white shadow-sm dark:bg-slate-800">
+            <div class="mx-auto max-w-7xl px-6 py-6">
+                {{ $header }}
+            </div>
+        </div>
+    @endisset
 
     {{ $slot }}
 

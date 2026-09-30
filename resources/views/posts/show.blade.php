@@ -1,4 +1,4 @@
-<x-layout :meta-title="$post->title" :meta-description="$post->body">
+<x-app-layout :meta-title="$post->title" :meta-description="$post->body">
   <article class="mx-auto mt-12 mb-16 max-w-3xl rounded-md bg-white p-8 shadow dark:bg-slate-800">
 
     <h1 class="font-serif text-4xl font-bold text-sky-600 dark:text-sky-400">{{ $post->title }}</h1>
@@ -42,4 +42,4 @@
       @endauth
     </div>
   </article>
-</x-layout>
+</x-app-layout>

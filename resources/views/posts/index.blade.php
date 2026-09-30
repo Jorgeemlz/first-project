@@ -1,4 +1,4 @@
-<x-layout meta-title="Blog" meta-description="Listado de posts del blog">
+<x-app-layout meta-title="Blog" meta-description="Listado de posts del blog">
 
   <h1 class="mt-12 text-center font-serif text-6xl font-bold text-sky-600 dark:text-sky-400">Blog</h1>
 
@@ -50,4 +50,4 @@
       </p>
     @endforelse
   </div>
-</x-layout>
+</x-app-layout>
