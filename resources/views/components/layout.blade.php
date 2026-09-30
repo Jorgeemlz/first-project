@@ -23,7 +23,7 @@
         </div>
     @endsession
 
-    @include('partials/navigation')
+    @include('layouts.navigation')
 
     {{ $slot }}
 

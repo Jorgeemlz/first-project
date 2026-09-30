@@ -23,6 +23,8 @@
         ← Volver al blog
       </a>
 
+      {{-- Editar y Eliminar: solo con sesión iniciada --}}
+      @auth
       <div class="flex items-center gap-3">
         <a href="{{ route('posts.edit', $post) }}"
           class="rounded-md bg-slate-700 px-4 py-1.5 text-sm font-semibold text-white hover:bg-slate-800 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-white">
@@ -37,6 +39,7 @@
           </button>
         </form>
       </div>
+      @endauth
     </div>
   </article>
 </x-layout>
